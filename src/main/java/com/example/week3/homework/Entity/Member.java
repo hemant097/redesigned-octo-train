@@ -1,24 +1,21 @@
 package com.example.week3.homework.Entity;
 
+import com.example.week3.homework.Entity.enums.MemberStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Author {
+public class Member {
 
     @Id
-    private Long id;
+    private Long memberId;
     private String name;
     private String email;
-    private String bio;
-    private LocalDate birthDate;
-
+    private MemberStatus status;
 }
