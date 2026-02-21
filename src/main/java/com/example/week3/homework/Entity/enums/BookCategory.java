@@ -12,5 +12,6 @@ public enum BookCategory {
     ROMANCE,
     SCIENCE,
     SELFHELP,
-    THRILLER;
+    THRILLER,
+    UNDEFINED;
 }

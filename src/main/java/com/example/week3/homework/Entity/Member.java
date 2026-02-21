@@ -1,11 +1,12 @@
 package com.example.week3.homework.Entity;
 
-import com.example.week3.homework.Entity.enums.MemberStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -14,8 +15,11 @@ import lombok.NoArgsConstructor;
 public class Member {
 
     @Id
-    private Long memberId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String email;
-    private MemberStatus status;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private Set<BorrowRecord> borrowRecord = new HashSet<>();
 }
