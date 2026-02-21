@@ -10,6 +10,7 @@ import com.example.week3.homework.Repos.AuthorRepository;
 import com.example.week3.homework.Repos.BookRepository;
 import com.example.week3.homework.Repos.BorrowRecordRepository;
 import com.example.week3.homework.Repos.MemberRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static com.example.week3.homework.Entity.enums.BookState.AVAILABLE;
 import static com.example.week3.homework.Entity.enums.BookState.BORROWED;
 
 @Service
@@ -66,4 +68,21 @@ public class BorrowService {
 
 
     }
+
+    @Transactional
+    public String returnABook(Long borrowRecordId){
+
+        BorrowRecord borrowRecord = borrowRecRepo.findById(borrowRecordId)
+                .orElseThrow( () -> new ResourceNotFoundException("no borrow related details found"));
+
+        //assuming calling this method, means dueDate has arrived and the person has come to return this specific book
+
+        Book borrowedBook = borrowRecord.getBook();
+        borrowedBook.setState(AVAILABLE);
+        borrowRecRepo.deleteById(borrowRecordId);
+
+        return "borrowRecordDeleted Successfully";
+    }
+
+
 }

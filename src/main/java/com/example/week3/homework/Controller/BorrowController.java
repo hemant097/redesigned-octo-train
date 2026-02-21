@@ -5,10 +5,7 @@ import com.example.week3.homework.Service.BorrowService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/borrow")
@@ -26,6 +23,15 @@ public class BorrowController {
         BorrowRecordDto savedBorrowRecord = borrowService.borrowABook(memberEmail , ISBN);
 
         return ResponseEntity.ok(savedBorrowRecord);
+
+    }
+
+    @DeleteMapping(path = "/remove/{id}")
+    ResponseEntity<String> deleteABorrowRecord(@PathVariable(name = "id") Long borrowRecordId){
+
+        String message = borrowService.returnABook(borrowRecordId);
+
+        return ResponseEntity.ok(message);
 
     }
 }
