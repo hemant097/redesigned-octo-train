@@ -27,7 +27,7 @@ public class BorrowController {
     }
 
     @DeleteMapping(path = "/remove/{id}")
-    ResponseEntity<String> deleteABorrowRecord(@PathVariable(name = "id") Long borrowRecordId){
+    ResponseEntity<String> deleteABorrowRecordAndReturnTheBook(@PathVariable(name = "id") Long borrowRecordId){
 
         String message = borrowService.returnABook(borrowRecordId);
 
